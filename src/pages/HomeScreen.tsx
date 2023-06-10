@@ -6,6 +6,7 @@
  */
 // import at the very top of everything.
 import React, {memo, useCallback, useEffect, useMemo, useState} from 'react';
+import {Image, StyleSheet, View} from 'react-native';
 
 import Button from 'react-native-button';
 
@@ -24,8 +25,6 @@ function App({navigation, route}): JSX.Element {
 
   useEffect(() => {
     if (route.params?.post) {
-      // Post updated, do something with `route.params.post`
-      // For example, send the post to the server
       console.log('route.params?.post update:::', route.params?.post);
     }
   }, [route.params?.post]);
@@ -35,24 +34,50 @@ function App({navigation, route}): JSX.Element {
       <Button
         onPress={onPressedHandle}
         onLongPress={onLongPressHandle}
-        style={{
-          fontSize: 20,
-          color: 'green',
-          width: 200,
-          backgroundColor: 'red',
-          borderRadius: 4,
-        }}>
+        style={[styles.button, styles.buttonGreen]}>
         Learn More
       </Button>
       <Button onPress={() => navigation.navigate('CreatePost')}>
         Create post
       </Button>
       <Button onPress={() => navigation.navigate('Profile')}>Profile</Button>
-      <Button onPress={() => navigation.navigate('SelectFile')}>
-        SelectFileScreen
+      <Button onPress={() => navigation.navigate('Components')}>
+        Components
       </Button>
+      <Button onPress={() => navigation.navigate('Drawer', {screen: 'Feed'})}>
+        Drawer
+      </Button>
+      <View style={styles.alignCenter}>
+        <Image
+          source={{
+            uri: 'https://xieyufei.com/img/bg_small.jpg',
+            // cache: 'only-if-cached',
+          }}
+          style={styles.minImage}
+          opacity={0.2}
+        />
+      </View>
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  button: {
+    fontSize: 20,
+    width: 200,
+    borderRadius: 4,
+  },
+  buttonGreen: {
+    backgroundColor: 'red',
+    color: 'green',
+  },
+  alignCenter: {
+    alignItems: 'center',
+  },
+  minImage: {
+    width: 50,
+    height: 200,
+  },
+});
 
 export default App;

@@ -50,6 +50,8 @@ function App({navigation, route}): JSX.Element {
     width: 0,
     height: 300,
   });
+  const [count, setCount] = React.useState(0);
+  
   useEffect(() => {
     Image.getSize(imageSource.uri, (width, height) => {
       console.log('image getsize ====:::', width, height);
