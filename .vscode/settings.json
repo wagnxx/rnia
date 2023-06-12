@@ -1,5 +1,13 @@
 {
     "editor.codeActionsOnSave": {
         "source.fixAll": true
+    },
+    "pathAlias.aliasMap":{
+        "@": "${cwd}/src",
+        "@/utils": "${cwd}/src/utils",
+        "@/styles": "${cwd}/src/styles",
+        "@/actions": "${cwd}/src/actions",
+        "@/components": "${cwd}/src/components",
+        "@/services": "${cwd}/src/services",
     }
 }
