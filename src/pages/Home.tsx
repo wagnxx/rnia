@@ -51,7 +51,29 @@ function App({navigation, route}): JSX.Element {
     height: 300,
   });
   const [count, setCount] = React.useState(0);
-  
+  const [userInfo, setuserInfo] = useState('');
+
+  const fetchUserMessage = () => {
+    fetch('http://localhost:3000/api/f', {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then(json => {
+        const str = JSON.stringify(json);
+        setuserInfo(str);
+      })
+      .catch(err => {
+        setuserInfo('null');
+      });
+  };
+
+  useEffect(() => {
+    fetchUserMessage();
+  });
+
   useEffect(() => {
     Image.getSize(imageSource.uri, (width, height) => {
       console.log('image getsize ====:::', width, height);
@@ -90,6 +112,13 @@ function App({navigation, route}): JSX.Element {
     }
   }, [route.params?.post]);
 
+  useEffect(() => {
+    console.log('Home mounted');
+    return () => {
+      console.log('Home destroyed');
+    };
+  }, []);
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -100,6 +129,9 @@ function App({navigation, route}): JSX.Element {
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
         <Header />
+        <View>
+          <Text>{userInfo}</Text>
+        </View>
         <Button
           onPress={onPressedHandle}
           onLongPress={onLongPressHandle}
